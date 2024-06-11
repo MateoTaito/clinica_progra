@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear Registro de Paciente</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    form {
+      margin: 20px auto;
+      max-width: 400px;
+    }
+    input[type="text"], input[type="number"], select {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      box-sizing: border-box;
+    }
+    input[type="submit"] {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Crear Registro de Paciente</h1>
+  <form id="patientForm">
+    <input type="text" id="name" name="name" placeholder="Nombre" required><br>
+    <input type="text" id="rut" name="rut" placeholder="Rut" required><br>
+    <input type="text" id="direccion" name="direccion" placeholder="Dirección" required><br>
+    <input type="number" id="numero" name="numero" placeholder="Numero de teléfono" required><br>
+    <input type="submit" value="Guardar Registro">
+  </form>
+
+  <script>
+    document.getElementById('patientForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      var formData = {
+        nombre: document.getElementById('name').value,
+        direccion: document.getElementById('direccion').value,
+        rut: document.getElementById('rut').value,
+        numero: document.getElementById('numero').value
+      };
+
+      fetch('http://localhost:4000/api/auth/crear_paciente', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      })
+
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Borrar Registro de Paciente</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    form {
+      margin: 20px auto;
+      max-width: 400px;
+    }
+    input[type="text"], input[type="number"], select {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      box-sizing: border-box;
+    }
+    input[type="submit"] {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Crear Registro de Paciente</h1>
+  <form id="patientForm">
+    <input type="text" id="rut" name="rut" placeholder="Rut" required><br>
+    <input type="submit" value="Borrar Registro">
+  </form>
+
+  <script>
+    document.getElementById('patientForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      var formData = {
+        rut: document.getElementById('rut').value,
+      };
+
+      fetch('http://localhost:4000/api/auth/delete_paciente', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      })
+
+    });
+  </script>
+</body>
+</html>

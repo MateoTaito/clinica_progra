@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registros de Pacientes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    table {
+      border-collapse: collapse;
+      width: 80%;
+      margin: 20px auto;
+    }
+    th, td {
+      border: 1px solid #dddddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h1>Registros de Pacientes</h1>
+  <table id="patientTable">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Rut</th>
+        <th>Numero</th>
+        <th>Dirección</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Aquí se insertarán los registros -->
+    </tbody>
+  </table>
+
+  <script>
+    fetch('http://localhost:4000/api/auth/lista_pacientes')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Error en la solicitud');
+        }
+        return response.json();
+      })
+      .then(data => {
+        const tableBody = document.querySelector('#patientTable tbody');
+
+        data.forEach(patient => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${patient.Nombre}</td>
+            <td>${patient.Rut}</td>
+            <td>${patient.Telefono}</td>
+            <td>${patient.Dirección}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Hubo un error al cargar los registros de pacientes');
+      });
+  </script>
+</body>
+</html>
